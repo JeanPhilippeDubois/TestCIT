@@ -15,6 +15,7 @@ namespace TestProgrammationConformit.Models
 
         public DateTime Date { get; set; }
 
+        [Required]
         public Event Event { get; set; }
     }
 }

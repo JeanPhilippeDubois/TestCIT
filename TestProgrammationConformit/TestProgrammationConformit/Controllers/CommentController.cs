@@ -14,8 +14,10 @@ namespace TestProgrammationConformit.Controllers
     [ApiController]
     public class CommentController : ControllerBase
     {
+        /// <summary>
+        /// Context for the database.
+        /// </summary>
         private readonly ConformitContext _context;
-
         public CommentController(ConformitContext context)
         {
             _context = context;

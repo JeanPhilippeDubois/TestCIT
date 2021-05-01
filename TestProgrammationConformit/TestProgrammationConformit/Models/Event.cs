@@ -16,7 +16,7 @@ namespace TestProgrammationConformit.Models
 
         public string Description { get; set; }
 
-        public string Person { get; set; }
+        public Person Person { get; set; }
 
         public Comment[] Comments { get; set; }
     }

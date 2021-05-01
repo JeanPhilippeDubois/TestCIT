@@ -24,7 +24,10 @@ namespace TestProgrammationConformit.Controllers
         {
             return _context.Events.Any(e => e.Id == id);
         }
-
+        /// <summary>
+        /// Returns the list of events upon a GET request on api/Event
+        /// </summary>
+        /// <returns>The list of all events in the database.</returns>
         // GET: api/Event
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
@@ -32,6 +35,11 @@ namespace TestProgrammationConformit.Controllers
             return await _context.Events.ToListAsync();
                 
         }
+        /// <summary>
+        /// Returns an event upon receiving a GET request on api/Event/{id}
+        /// </summary>
+        /// <param name="id">The id of the event</param>
+        /// <returns>The event and it's information</returns>
         // GET: api/Event/1
         [HttpGet("{id}")]
         public async Task<ActionResult<Event>> GetEvent(int id)
@@ -45,6 +53,12 @@ namespace TestProgrammationConformit.Controllers
 
             return Event;
         }
+        /// <summary>
+        /// Modifies an event upon receiving a PUT request on api/Event/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="events"></param>
+        /// <returns>Produces a status 200 OK response</returns>
         // PUT: api/Event/2
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent(int id, Event events)
@@ -72,9 +86,13 @@ namespace TestProgrammationConformit.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
-
+        /// <summary>
+        /// Deletes an event upon receiving a DELETE request on api/Event/{id}
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE: api/Event/1
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
@@ -90,7 +108,11 @@ namespace TestProgrammationConformit.Controllers
 
             return NoContent();
         }
-
+        /// <summary>
+        /// Creates a new event upon receiving a POST request to api/Event
+        /// </summary>
+        /// <param name="events">The event to be created</param>
+        /// <returns>A status 201 response if all parameters are okay.</returns>
         // POST: api/Event
         [HttpPost]
         public async Task<ActionResult<Event>> PostEvent(Event events)
