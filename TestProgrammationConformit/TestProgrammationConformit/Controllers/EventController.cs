@@ -20,9 +20,9 @@ namespace TestProgrammationConformit.Controllers
         {
             _context = context;
         }
-        private bool EventExists(string title)
+        private bool EventExists(int id)
         {
-            return _context.Events.Any(e => e.Title == title);
+            return _context.Events.Any(e => e.Id == id);
         }
 
         // GET: api/Event
@@ -32,11 +32,11 @@ namespace TestProgrammationConformit.Controllers
             return await _context.Events.ToListAsync();
                 
         }
-        // GET: api/Event/the_title
-        [HttpGet("{title}")]
-        public async Task<ActionResult<Event>> GetEvent(string title)
+        // GET: api/Event/1
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Event>> GetEvent(int id)
         {
-            var Event = await _context.Events.FindAsync(title);
+            var Event = await _context.Events.FindAsync(id);
 
             if (Event == null)
             {
@@ -45,11 +45,11 @@ namespace TestProgrammationConformit.Controllers
 
             return Event;
         }
-        // PUT: api/Event/the_title
-        [HttpPut("{title}")]
-        public async Task<IActionResult> PutEvent(string title, Event events)
+        // PUT: api/Event/2
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutEvent(int id, Event events)
         {
-            if (title != events.Title)
+            if (id != events.Id)
             {
                 return BadRequest();
             }
@@ -62,7 +62,7 @@ namespace TestProgrammationConformit.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EventExists(title))
+                if (!EventExists(id))
                 {
                     return NotFound();
                 }
@@ -75,11 +75,11 @@ namespace TestProgrammationConformit.Controllers
             return NoContent();
         }
 
-
-        [HttpDelete("{title}")]
-        public async Task<IActionResult> DeleteEvent(string title)
+        // DELETE: api/Event/1
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEvent(int id)
         {
-            var events = await _context.Events.FindAsync(title);
+            var events = await _context.Events.FindAsync(id);
             if (events == null)
             {
                 return NotFound();
@@ -98,8 +98,8 @@ namespace TestProgrammationConformit.Controllers
             _context.Events.Add(events);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-            return CreatedAtAction(nameof(GetEvent), new { title = events.Title }, events);
+
+            return CreatedAtAction(nameof(GetEvent), new { id = events.Id}, events);
         }
     }
 }

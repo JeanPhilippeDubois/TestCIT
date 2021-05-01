@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using TestProgrammationConformit.Models;
 
 namespace TestProgrammationConformit.Infrastructures
 {
@@ -11,5 +12,9 @@ namespace TestProgrammationConformit.Infrastructures
         public ConformitContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Event> Events { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
     }
 }
