@@ -11,6 +11,7 @@ namespace TestProgrammationConformit.Models
         [Key]
         public int Id { get; set; }
 
+        [StringLength(100, ErrorMessage = "Title length can't be more than 100.")]
         public string Title { get; set; }
 
         public string Description { get; set; }
