@@ -8,12 +8,13 @@ namespace TestProgrammationConformit.Models
 {
     public class Comment
     {
-        [Key]
         public int Id { get; set; }
 
         public string Description { get; set; }
 
         public DateTime Date { get; set; }
+
+        public int EventId { get; set; }
 
         [Required]
         public Event Event { get; set; }
