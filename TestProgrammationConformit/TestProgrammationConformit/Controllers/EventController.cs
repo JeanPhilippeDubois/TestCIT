@@ -30,6 +30,7 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>The list of all events in the database.</returns>
         // GET: api/Event
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
         {
             return await _context.Events.ToListAsync();
@@ -42,6 +43,7 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>The event and it's information</returns>
         // GET: api/Event/1
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Event>> GetEvent(int id)
         {
             var Event = await _context.Events.FindAsync(id);
@@ -61,6 +63,9 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>Produces a status 200 OK response</returns>
         // PUT: api/Event/2
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutEvent(int id, Event events)
         {
             if (id != events.Id)
@@ -92,9 +97,11 @@ namespace TestProgrammationConformit.Controllers
         /// Deletes an event upon receiving a DELETE request on api/Event/{id}
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>A status 200 OK response if an event if found or 404 if not found</returns>
         // DELETE: api/Event/1
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteEvent(int id)
         {
             var events = await _context.Events.FindAsync(id);
@@ -106,7 +113,7 @@ namespace TestProgrammationConformit.Controllers
             _context.Events.Remove(events);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok();
         }
         /// <summary>
         /// Creates a new event upon receiving a POST request to api/Event
@@ -115,6 +122,8 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>A status 201 response if all parameters are okay.</returns>
         // POST: api/Event
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Event>> PostEvent(Event events)
         {
             _context.Events.Add(events);

@@ -37,6 +37,7 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>All comments from the database.</returns>
         // GET: api/Comment
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
         {
             return await _context.Comments.ToListAsync();
@@ -49,6 +50,8 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>The comment</returns>
         // GET: api/Comment/1
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<Comment>> GetComment(int id)
         {
             var Comment = await _context.Comments.FindAsync(id);
@@ -68,6 +71,9 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>Returns a status 200 response</returns>
         // PUT: api/Comment/2
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PutComment(int id, Comment comment)
         {
             if (id != comment.Id)
@@ -102,6 +108,8 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>Returns a status 200 response.</returns>
         // DELETE: api/Comment/3
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteComment(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
@@ -122,6 +130,8 @@ namespace TestProgrammationConformit.Controllers
         /// <returns>Returns a status 201 response</returns>
         // POST: api/Event
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
             _context.Comments.Add(comment);
