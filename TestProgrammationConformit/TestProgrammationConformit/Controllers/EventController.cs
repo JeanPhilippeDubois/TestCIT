@@ -31,18 +31,18 @@ namespace TestProgrammationConformit.Controllers
         // GET: api/Event
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Event>>> GetEvents()
+        public async Task<ActionResult<IEnumerable<Event>>> GetListEvents()
         {
             return await _context.Events.ToListAsync();
                 
         }
         /// <summary>
-        /// Returns an event upon receiving a GET request on api/Event/{id}
+        /// Returns an event upon receiving a GET request on api/Event/GetEvent/{id}
         /// </summary>
         /// <param name="id">The id of the event</param>
         /// <returns>The event and it's information</returns>
         // GET: api/Event/1
-        [HttpGet("{id}")]
+        [HttpGet("{action}/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Event>> GetEvent(int id)
         {
@@ -66,7 +66,7 @@ namespace TestProgrammationConformit.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> PutEvent(int id, Event events)
+        public async Task<IActionResult> PutEvent(int id, [FromBody] Event events)
         {
             if (id != events.Id)
             {
@@ -124,7 +124,7 @@ namespace TestProgrammationConformit.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Event>> PostEvent(Event events)
+        public async Task<ActionResult<Event>> PostEvent([FromBody] Event events)
         {
             _context.Events.Add(events);
             await _context.SaveChangesAsync();

@@ -8,6 +8,7 @@ namespace TestProgrammationConformit.Models
 {
     public class Event
     {
+        [Key]
         public int Id { get; set; }
 
         [StringLength(100, ErrorMessage = "Title length can't be more than 100.")]

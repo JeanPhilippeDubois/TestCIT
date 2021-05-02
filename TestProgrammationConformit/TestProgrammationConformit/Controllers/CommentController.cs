@@ -38,18 +38,18 @@ namespace TestProgrammationConformit.Controllers
         // GET: api/Comment
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        public async Task<ActionResult<IEnumerable<Comment>>> GetListComments()
         {
             return await _context.Comments.ToListAsync();
 
         }
         /// <summary>
-        /// Returns a comment depending on it's id upon a GET request using api/Comment/{id}
+        /// Returns a comment depending on it's id upon a GET request using api/Comment/GetComment/{id}
         /// </summary>
         /// <param name="id">The id of the comment</param>
         /// <returns>The comment</returns>
-        // GET: api/Comment/1
-        [HttpGet("{id}")]
+        // GET: api/Comment/GetComment/1
+        [HttpGet("{action}/{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<Comment>> GetComment(int id)
@@ -74,7 +74,7 @@ namespace TestProgrammationConformit.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> PutComment(int id, Comment comment)
+        public async Task<IActionResult> PutComment(int id, [FromBody] Comment comment)
         {
             if (id != comment.Id)
             {
@@ -132,7 +132,7 @@ namespace TestProgrammationConformit.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<Comment>> PostComment([FromBody] Comment comment)
         {
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
